@@ -1,2 +1,10 @@
 resolver: lts-20.25 # GHC 9.2.8
 install-ghc: true
+
+
+# for this project to work correctly in vscode.
+# we need the following versions
+# Haskell Language Server: 2.9.0.1
+# Stack version: 3.3.1 or 3.7.1
+# cabal version: 3.12.1.0
+# ghc version: 9.2.8
