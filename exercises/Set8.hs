@@ -434,7 +434,7 @@ largeVerticalStripes2 = apply (Chain (Zoom 5) FlipXY) (stripes red yellow)
 
 -- We can also define a nice checkered pattern by overlaying two stripes.
 -- See it by running
---    render checkered 400 30 "checkered.png"
+--    render checkered 400 300 "checkered.png"
 flipBlend :: Picture -> Picture
 flipBlend picture = blend picture (apply FlipXY picture)
 

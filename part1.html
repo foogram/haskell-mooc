@@ -1398,7 +1398,7 @@ fib 5        ==>          |           |
                                                   1       1
 ```
 -->
-<p>This tree then exaclty corresponds with the expression
+<p>This tree then exactly corresponds with the expression
 <code>(1 + 1) + (1 + (1 + 1))</code>. Recursion can often produce
 chain-like, tree-like, nested, or loopy structures and computations.
 Recursion is one of the main techniques in functional programming, so
@@ -1407,7 +1407,7 @@ it’s worth spending some effort in learning it.</p>
 <h2 data-number="1.10" id="all-together-now"><span
 class="header-section-number">1.10</span> All Together Now!</h2>
 <p>Finally, here’s a complete Haskell module that uses ifs, pattern
-matching, local defintions and recursion. The module is interested in
+matching, local definitions and recursion. The module is interested in
 the <a
 href="https://en.wikipedia.org/wiki/Collatz_conjecture"><em>Collatz
 conjecture</em></a>, a famous open problem in mathematics. It asks:</p>
@@ -1550,7 +1550,7 @@ If you can’t seem to get indentation to work, try putting everything on
 just one long line at first.</p>
 <h2 data-number="1.12" id="quiz"><span
 class="header-section-number">1.12</span> Quiz</h2>
-<p>At the end of each lecture you’ll find a quiz like this. The quizes
+<p>At the end of each lecture you’ll find a quiz like this. The quizzes
 aren’t graded, they’re just here to help you check you’ve understood the
 chapter. You can check your answer by clicking on an option. You’ll see
 a green background if you were right, a red one if you were wrong. Feel
@@ -1560,10 +1560,10 @@ why the right option is right in the end.</p>
 <code>combine(prettify(lawn),construct(house,concrete))</code>?</p>
 <ol class="quiz">
 <li>
-<code>combine prettify (lawn) construct (house concerete)</code>
+<code>combine prettify (lawn) construct (house concrete)</code>
 </li>
 <li>
-<code>combine (prettify lawn (counstruct house concrete))</code>
+<code>combine (prettify lawn (construct house concrete))</code>
 </li>
 <li class="correct">
 <code>combine (prettify lawn) (construct house concrete)</code>
@@ -1684,8 +1684,8 @@ a newer one.</li>
 <p>There are primarily two types of files in the <code>exercises</code>
 directory: exercise sets named <code>SetNX.hs</code> and accompanying
 test program for the exercises named <code>SetNXTest.hs</code>. Both are
-Haskell source files, but only the exercise file should to be edited
-when solving the exercises. Instructions to all individual exercises are
+Haskell source files, but only the exercise file should be edited when
+solving the exercises. Instructions to all individual exercises are
 embedded in the exercise file as comments.</p>
 <p>Use the tests file to check your answers. For example when you have
 solved some of the exercises in <code>Set1.hs</code>, run the following
@@ -1881,11 +1881,11 @@ you see why? The answer is that there are less recursive calls. The
 expression <code>fibonacci' _ _ n</code> calls
 <code>fibonacci' _ _ (n-1)</code> once, and this means that we can
 compute <code>fibonacci' _ _ n</code> in <code>n</code> steps.</p>
-<p>This type of recursion where a function just directly calls itself
-with different arguments is called <em>tail recursion</em>. As you’ve
-seen above, tail recursion corresponds to loops. This is why tail
-recursion is often fast: the compiler can generate a loop in machine
-code when it sees tail recursion.</p>
+<p>This type of recursion is called <em>tail recursion</em>, meaning the
+recursive call occurs in tail position – that is, there is no remaining
+work to perform after the recursive call. Because nothing must be done
+afterward, a tail-recursive function can be optimized into an efficient
+loop by the compiler in machine code.</p>
 <h2 data-number="2.2" id="guards"><span
 class="header-section-number">2.2</span> Guards</h2>
 <p>Before we move on to new types, let’s go over one more piece of
@@ -1986,7 +1986,7 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb99-1"><a
 <span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a><span class="fu">init</span><span class="ot"> ::</span> [a] <span class="ot">-&gt;</span> [a]          <span class="co">-- returns everything except the last element</span></span>
 <span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a><span class="fu">take</span><span class="ot"> ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [a]   <span class="co">-- returns the n first elements</span></span>
 <span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a><span class="fu">drop</span><span class="ot"> ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [a]   <span class="co">-- returns everything except the n first elements</span></span>
-<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a><span class="ot">(++) ::</span> [a] <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [a]   <span class="co">-- lists are catenated with the ++ operator</span></span>
+<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a><span class="ot">(++) ::</span> [a] <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [a]   <span class="co">-- lists are concatenated with the ++ operator</span></span>
 <span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a><span class="ot">(!!) ::</span> [a] <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> a     <span class="co">-- lists are indexed with the !! operator</span></span>
 <span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a><span class="fu">reverse</span><span class="ot"> ::</span> [a] <span class="ot">-&gt;</span> [a]       <span class="co">-- reverse a list</span></span>
 <span id="cb99-10"><a href="#cb99-10" aria-hidden="true" tabindex="-1"></a><span class="fu">null</span><span class="ot"> ::</span> [a] <span class="ot">-&gt;</span> <span class="dt">Bool</span>         <span class="co">-- is this list empty?</span></span>
@@ -2903,23 +2903,23 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb182-1"><
 use a helper function – such as <code>add</code> above.</p>
 <p>Note that omitting the parentheses leads into a type error:</p>
 <div class="sourceCode" id="cb183"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb183-1"><a href="#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Prelude</span><span class="op">&gt;</span> <span class="fu">zipWith</span> <span class="op">+</span> [<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">3</span>] [<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>]</span>
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb183-1"><a href="#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Prelude</span><span class="op">&gt;</span> <span class="fu">zipWith</span> <span class="op">+</span> [<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">5</span>] [<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>]</span>
 <span id="cb183-2"><a href="#cb183-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb183-3"><a href="#cb183-3" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>interactive<span class="op">&gt;:</span><span class="dv">1</span><span class="op">:</span><span class="dv">11</span><span class="op">:</span> <span class="fu">error</span><span class="op">:</span></span>
 <span id="cb183-4"><a href="#cb183-4" aria-hidden="true" tabindex="-1"></a>    • <span class="dt">Couldn&#39;t</span> match expected <span class="kw">type</span> ‘[<span class="dt">Integer</span>]</span>
 <span id="cb183-5"><a href="#cb183-5" aria-hidden="true" tabindex="-1"></a>                                    <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [b] <span class="ot">-&gt;</span> [c]’</span>
 <span id="cb183-6"><a href="#cb183-6" aria-hidden="true" tabindex="-1"></a>                  with actual <span class="kw">type</span> ‘[<span class="dt">Integer</span>]’</span>
-<span id="cb183-7"><a href="#cb183-7" aria-hidden="true" tabindex="-1"></a>    • <span class="dt">The</span> function ‘[<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>]’ is applied to one argument,</span>
+<span id="cb183-7"><a href="#cb183-7" aria-hidden="true" tabindex="-1"></a>    • <span class="dt">The</span> function ‘[<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">5</span>]’ is applied to one argument,</span>
 <span id="cb183-8"><a href="#cb183-8" aria-hidden="true" tabindex="-1"></a>      but its <span class="kw">type</span> ‘[<span class="dt">Integer</span>]’ has none</span>
-<span id="cb183-9"><a href="#cb183-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">In</span> the second argument <span class="kw">of</span> ‘(<span class="op">+</span>)’, namely ‘[<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>] [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>]’</span>
-<span id="cb183-10"><a href="#cb183-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">In</span> the expression<span class="op">:</span> <span class="fu">zipWith</span> <span class="op">+</span> [<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>] [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>]</span>
+<span id="cb183-9"><a href="#cb183-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">In</span> the second argument <span class="kw">of</span> ‘(<span class="op">+</span>)’, namely ‘[<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">5</span>] [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>]’</span>
+<span id="cb183-10"><a href="#cb183-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">In</span> the expression<span class="op">:</span> <span class="fu">zipWith</span> <span class="op">+</span> [<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">5</span>] [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>]</span>
 <span id="cb183-11"><a href="#cb183-11" aria-hidden="true" tabindex="-1"></a>    • <span class="dt">Relevant</span> bindings include</span>
 <span id="cb183-12"><a href="#cb183-12" aria-hidden="true" tabindex="-1"></a><span class="ot">        it ::</span> (a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [b] <span class="ot">-&gt;</span> [c]</span>
 <span id="cb183-13"><a href="#cb183-13" aria-hidden="true" tabindex="-1"></a>          (bound at <span class="op">&lt;</span>interactive<span class="op">&gt;:</span><span class="dv">1</span><span class="op">:</span><span class="dv">1</span>)</span></code></pre></div>
 <p>The reason for this weird-looking error is that GHCi got confused and
 thought that we were somehow trying to add <code>zipWith</code> and
-<code>[0,2,5,3] [1,3,3]</code> together. Logically, it deduced that
-<code>[0,2,5,3]</code> must be a function since it’s being applied to
+<code>[0,2,5] [1,3,3]</code> together. Logically, it deduced that
+<code>[0,2,5]</code> must be a function since it’s being applied to
 <code>[1,3,3]</code> (remember that functions bind tighter than
 operators).</p>
 <p>Unfortunately, error messages can sometimes be obscure, since the
@@ -4250,7 +4250,7 @@ course.</p>
 over. The true type of <code>foldr</code> is:</p>
 <div class="sourceCode" id="cb308"><pre
 class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb308-1"><a href="#cb308-1" aria-hidden="true" tabindex="-1"></a><span class="fu">foldr</span><span class="ot"> ::</span> <span class="dt">Foldable</span> t <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> t a <span class="ot">-&gt;</span> b</span></code></pre></div>
-<p>We’ve succesfully used the fact that lists are <code>Foldable</code>
+<p>We’ve successfully used the fact that lists are <code>Foldable</code>
 since we’ve managed to use <code>length</code> and <code>foldr</code> on
 lists. However, <code>Maybe</code> is also <code>Foldable</code>! The
 <code>Foldable</code> instance for <code>Maybe</code> just pretends that
@@ -4844,12 +4844,12 @@ thing with a type parameter. This is the same as the built in type
 <div class="sourceCode" id="cb350"><pre
 class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb350-1"><a href="#cb350-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">List</span> a <span class="ot">=</span> <span class="dt">Empty</span> <span class="op">|</span> <span class="dt">Node</span> a (<span class="dt">List</span> a)</span>
 <span id="cb350-2"><a href="#cb350-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">deriving</span> <span class="dt">Show</span></span></code></pre></div>
-<p>Note how we need to pass the the type parameter <code>a</code>
-onwards in the recursion. We need to write <code>Node a (List a)</code>
-instead of <code>Node a List</code>. The <code>Node</code> constructor
-has two arguments. The first has type <code>a</code>, and the second has
-type <code>List a</code>. Here are the reimplementations of some
-standard list functions for our <code>List</code> type:</p>
+<p>Note how we need to pass the type parameter <code>a</code> onwards in
+the recursion. We need to write <code>Node a (List a)</code> instead of
+<code>Node a List</code>. The <code>Node</code> constructor has two
+arguments. The first has type <code>a</code>, and the second has type
+<code>List a</code>. Here are the reimplementations of some standard
+list functions for our <code>List</code> type:</p>
 <div class="sourceCode" id="cb351"><pre
 class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb351-1"><a href="#cb351-1" aria-hidden="true" tabindex="-1"></a><span class="ot">lhead ::</span> <span class="dt">List</span> a <span class="ot">-&gt;</span> a</span>
 <span id="cb351-2"><a href="#cb351-2" aria-hidden="true" tabindex="-1"></a>lhead (<span class="dt">Node</span> h _) <span class="ot">=</span> h</span>
@@ -4938,7 +4938,7 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb357-1"><
 <span id="cb357-12"><a href="#cb357-12" aria-hidden="true" tabindex="-1"></a>  <span class="op">==&gt;</span> <span class="dv">1</span> <span class="op">+</span> <span class="fu">max</span> <span class="dv">2</span> <span class="dv">0</span></span>
 <span id="cb357-13"><a href="#cb357-13" aria-hidden="true" tabindex="-1"></a>  <span class="op">==&gt;</span> <span class="dv">3</span></span></code></pre></div>
 <p>In case you’re familiar with <em>binary search trees</em>, here are
-the definitions of the lookup and insert opertions for a binary search
+the definitions of the lookup and insert operations for a binary search
 tree. If you don’t know what I’m talking about, you don’t need to
 understand this.</p>
 <div class="sourceCode" id="cb358"><pre
@@ -5695,7 +5695,7 @@ skills from the previous lectures.</p>
 <h2 data-number="7.1" id="modeling-with-boxes"><span
 class="header-section-number">7.1</span> Modeling with Boxes</h2>
 <p>Sometimes you don’t need a new type, but instead can just reuse a
-standard type. For example, repesenting car register plate numbers with
+standard type. For example, representing car register plate numbers with
 <code>String</code>. However, if your code is full of
 <code>String</code>s, it can be easy to accidentally mix up e.g. a car’s
 model and registration in a function like
@@ -5874,8 +5874,8 @@ compute the third element of a list.</p>
 are subtraction and exponentiation. <code>(1-2)-3</code> is
 <code>-4</code> but <code>1-(2-3)</code> is <code>2</code>. Similarly,
 <code>(2^3)^2</code> is <code>64</code> while <code>2^(3^2)</code> is
-512. One needs to be careful with parentheses when using operators that
-are not associative.</p>
+<code>512</code>. One needs to be careful with parentheses when using
+operators that are not associative.</p>
 <p>Another operator that’s not associative is the list constructor,
 <code>(:)</code>. This time the reason is even more fundamental: while
 <code>True:(False:[])</code> is ok, <code>(True:False):[]</code> does
@@ -6284,7 +6284,7 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb454-1"><
 <span id="cb454-7"><a href="#cb454-7" aria-hidden="true" tabindex="-1"></a><span class="dt">Hello</span>, <span class="dt">Seraphim</span></span></code></pre></div>
 <h3 data-number="8.1.1" id="what-about-purity"><span
 class="header-section-number">8.1.1</span> What About Purity?</h3>
-<p>It feels as if we can just do side effects where ever we want with
+<p>It feels as if we can just do side effects wherever we want with
 these IO actions. However, it’s important to remember the distinction
 between <em>defining</em> an IO action and <em>executing</em> it.</p>
 <p>Let’s try to print while mapping over a list</p>
