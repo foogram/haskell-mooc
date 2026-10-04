@@ -118,8 +118,13 @@ capitalize = unwords . map (\(first:rest) -> toUpper first : rest) . words
 --   * the function takeWhile
 
 powers :: Int -> Int -> [Int]
-powers k max = powers' k max 0
- where powers' k max n = if k^n <= max then k^n : powers' k max (n+1) else []
+-- powers k max = powers' k max 0
+--  where powers' k max n = if k^n <= max then k^n : powers' k max (n+1) else []
+
+
+powers k max = go k 0 max []
+ where go k n max result = if k^n <= max then go k (n+1) max ( result ++ [k^n]  ) else result
+
 
 ------------------------------------------------------------------------------
 -- Ex 7: implement a functional while loop. While should be a function
