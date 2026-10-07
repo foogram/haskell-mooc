@@ -191,7 +191,7 @@ bomb x = Right (x-1)
 -- Hint! This is a great use for list comprehensions
 
 joinToLength :: Int -> [String] -> [String]
-joinToLength n xs = [ first ++ second | first <- "" : xs ,second <- "" : xs, length (first ++ second) == n ]
+joinToLength n xs = [ first ++ second | first <- xs ,second <- xs, length (first ++ second) == n ]
 
 ------------------------------------------------------------------------------
 -- Ex 10: implement the operator +|+ that returns a list with the first
@@ -205,7 +205,11 @@ joinToLength n xs = [ first ++ second | first <- "" : xs ,second <- "" : xs, len
 --   [] +|+ [True]        ==> [True]
 --   [] +|+ []            ==> []
 
-
+(+|+) :: [a] -> [a] -> [a]
+(a:as) +|+ [] = [a]
+[] +|+ (b:bs) = [b]
+(a:as) +|+ (b:bs) = [a, b]
+[] +|+ [] = []
 ------------------------------------------------------------------------------
 -- Ex 11: remember the lectureParticipants example from Lecture 2? We
 -- used a value of type [Either String Int] to store some measurements
@@ -221,7 +225,7 @@ joinToLength n xs = [ first ++ second | first <- "" : xs ,second <- "" : xs, len
 --   sumRights [Left "bad!", Left "missing"]         ==>  0
 
 sumRights :: [Either a Int] -> Int
-sumRights = todo
+sumRights  = sum . map (either (const 0) id)
 
 ------------------------------------------------------------------------------
 -- Ex 12: recall the binary function composition operation
