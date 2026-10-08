@@ -15,6 +15,7 @@ import Data.List
 import Data.Maybe (Maybe(Nothing))
 import Data.Char (toUpper)
 import Data.String (words)
+import GHC.Exts.Heap.Closures (closureSize)
 ------------------------------------------------------------------------------
 -- Ex 1: implement the function maxBy that takes as argument a
 -- measuring function (of type a -> Int) and two values (of type a).
@@ -206,10 +207,11 @@ joinToLength n xs = [ first ++ second | first <- xs ,second <- xs, length (first
 --   [] +|+ []            ==> []
 
 (+|+) :: [a] -> [a] -> [a]
+[] +|+ [] = []
 (a:as) +|+ [] = [a]
 [] +|+ (b:bs) = [b]
 (a:as) +|+ (b:bs) = [a, b]
-[] +|+ [] = []
+
 ------------------------------------------------------------------------------
 -- Ex 11: remember the lectureParticipants example from Lecture 2? We
 -- used a value of type [Either String Int] to store some measurements
@@ -241,8 +243,8 @@ sumRights  = sum . map (either (const 0) id)
 --   multiCompose [(3*), (2^), (+1)] 0 ==> 6
 --   multiCompose [(+1), (2^), (3*)] 0 ==> 2
 
-multiCompose fs = todo
-
+multiCompose []  = id
+multiCompose (f:fs) = f . multiCompose fs
 ------------------------------------------------------------------------------
 -- Ex 13: let's consider another way to compose multiple functions. Given
 -- some function f, a list of functions gs, and some value x, define
@@ -262,7 +264,21 @@ multiCompose fs = todo
 --   multiApp id [head, (!!2), last] "axbxc" ==> ['a','b','c'] i.e. "abc"
 --   multiApp sum [head, (!!2), last] [1,9,2,9,3] ==> 6
 
-multiApp = todo
+multiApp :: ([a] -> b) -> [c -> a] -> c -> b
+multiApp final_func funcs_array scalar_val = final_func (map (scalar_val_apply scalar_val) funcs_array)
+    where scalar_val_apply x f = f x
+
+-- multiApp final_func funcs_array scalar_val = final_func (go scalar_val funcs_array)
+--     where go _ [] = []
+--           go s_val (f:fs) = f s_val : go s_val fs
+
+-- multiApp final_func funcs_array scalar_val = final_func (map (\x -> x scalar_val) funcs_array)
+
+-- multiApp final_func funcs_array scalar_val = final_func [f scalar_val | f <- funcs_array]
+
+-- remaining things to take a look
+-- closures, higher order functions, partial application of functions
+
 
 ------------------------------------------------------------------------------
 -- Ex 14: in this exercise you get to implement an interpreter for a
@@ -297,4 +313,23 @@ multiApp = todo
 -- function, the surprise won't work. See section 3.8 in the material.
 
 interpreter :: [String] -> [String]
-interpreter commands = todo
+-- interpreter commands = interpreter' commands 0 0 []
+--     where interpreter' [] x y print_results = print_results
+--           interpreter' ("up":cs) x y print_results = interpreter' (cs) (x) (y+1) print_results
+--           interpreter' ("down":cs) x y print_results = interpreter' (cs) (x) (y-1) print_results
+--           interpreter' ("left":cs) x y print_results = interpreter' (cs) (x-1) (y) print_results
+--           interpreter' ("right":cs) x y print_results = interpreter' (cs) (x+1) (y) print_results
+--           interpreter' ("printX":cs) x y print_results = interpreter' (cs) (x) (y) (print_results ++ [show x])
+--           interpreter' ("printY":cs) x y print_results = interpreter' (cs) (x) (y) (print_results ++ [show y])
+
+interpreter commands = go 0 0 commands
+  where go x y ("up":commands) = go x (y+1) commands
+        go x y ("down":commands) = go x (y-1) commands
+        go x y ("left":commands) = go (x-1) y commands
+        go x y ("right":commands) = go (x+1) y commands
+        go x y ("printX":commands) = show x : go x y commands
+        go x y ("printY":commands) = show y : go x y commands
+        go x y []                  = []
+        go x y (_:commands)        = "BAD" : go x y commands
+
+
