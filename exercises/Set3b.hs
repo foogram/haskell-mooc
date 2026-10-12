@@ -39,8 +39,12 @@ import Mooc.Todo
 --   buildList 7 0 3 ==> [3]
 
 buildList :: Int -> Int -> Int -> [Int]
-buildList start count end = todo
+buildList start count end
+ | count == 0 = [end]
+ | count > 0 = start : buildList start (count -1) end
 
+-- buildList start 0 end = [end]
+-- buildList start n end = start :  buildList start (n-1) end
 ------------------------------------------------------------------------------
 -- Ex 2: given i, build the list of sums [1, 1+2, 1+2+3, .., 1+2+..+i]
 --
@@ -49,7 +53,10 @@ buildList start count end = todo
 -- Ps. you'll probably need a recursive helper function
 
 sums :: Int -> [Int]
-sums i = todo
+-- sums i = [ (n * (n +1)) `div` 2 |  n <- [1..i] ]
+sums i = go 1 [2..i]
+  where go start [] =[start]
+        go start (x:xs) = start : go (start+x) xs
 
 ------------------------------------------------------------------------------
 -- Ex 3: define a function mylast that returns the last value of the
@@ -63,7 +70,9 @@ sums i = todo
 --   mylast 0 [1,2,3] ==> 3
 
 mylast :: a -> [a] -> a
-mylast def xs = todo
+mylast def [] = def
+mylast def (x:xs) = mylast x xs
+
 
 ------------------------------------------------------------------------------
 -- Ex 4: safe list indexing. Define a function indexDefault so that
@@ -81,7 +90,14 @@ mylast def xs = todo
 --   indexDefault ["a","b","c"] (-1) "d" ==> "d"
 
 indexDefault :: [a] -> Int -> a -> a
-indexDefault xs i def = todo
+indexDefault (x:xs) 0 def = x
+indexDefault (x:xs) i def = indexDefault xs (i-1) def
+indexDefault _ i def = def
+
+-- funnily this works and doesn't infinitely recurse
+-- for the indexDefault ["a","b","c"] (-1) "d"
+-- because the list is getting smaller and smaller.
+
 
 ------------------------------------------------------------------------------
 -- Ex 5: define a function that checks if the given list is in
@@ -97,7 +113,12 @@ indexDefault xs i def = todo
 --   sorted [7,2,7] ==> False
 
 sorted :: [Int] -> Bool
-sorted xs = todo
+sorted xs = sorted' True xs
+  where sorted' False _ = False
+        sorted' accumulator [] = accumulator
+        sorted' accumulator [x] = accumulator
+        sorted' accumulator (x:y:xs) = sorted' (y >= x)  (y:xs)
+
 
 ------------------------------------------------------------------------------
 -- Ex 6: compute the partial sums of the given list like this:
