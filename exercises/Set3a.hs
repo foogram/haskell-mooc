@@ -333,3 +333,10 @@ interpreter commands = go 0 0 commands
         go x y (_:commands)        = "BAD" : go x y commands
 
 
+-- sumsOf xs = sumsOf' xs 0
+--   where sumsOf' (x:xs) previous_sum = (x + previous_sum) : sumsOf' xs (x + previous_sum)
+--         sumsOf' [] previous_sum = []
+
+sumsOf xs = sumsOf' xs 0 []
+  where sumsOf' (x:xs) previous_sum accumulator = sumsOf' xs (x + previous_sum) (  accumulator ++ [(x + previous_sum)] )
+        sumsOf' [] previous_sum accumulator = accumulator

@@ -130,7 +130,14 @@ sorted xs = sorted' True xs
 -- Use pattern matching and recursion (and the list constructors : and [])
 
 sumsOf :: [Int] -> [Int]
-sumsOf xs = todo
+sumsOf xs = sumsOf' xs 0
+  where sumsOf' (x:xs) previous_sum = (x + previous_sum) : sumsOf' xs (x + previous_sum)
+        sumsOf' [] previous_sum = []
+
+--unfortunately the ++ operator is not allowed in this module so the tail recursive version is not usable.
+-- sumsOf xs = sumsOf' xs 0 []
+--   where sumsOf' (x:xs) previous_sum accumulator = sumsOf' xs (x + previous_sum) (  accumulator ++ [x + previous_sum] )
+--         sumsOf' [] previous_sum accumulator = accumulator
 
 ------------------------------------------------------------------------------
 -- Ex 7: implement the function merge that merges two sorted lists of
@@ -145,7 +152,12 @@ sumsOf xs = todo
 --   merge [1] [2,3,4,5,6] ==> [1,2,3,4,5,6]
 
 merge :: [Int] -> [Int] -> [Int]
-merge xs ys = todo
+merge xs ys = helper xs ys
+ where helper (x:xs) (y:ys) = if x <= y then x : helper xs (y:ys) else y : helper (x:xs) ys
+       helper [] (y:ys) =  y : helper [] ys
+       helper (x:xs) [] = x : helper xs []
+       helper [] [] = []
+
 
 ------------------------------------------------------------------------------
 -- Ex 8: compute the biggest element, using a comparison function
@@ -169,7 +181,16 @@ merge xs ys = todo
 --     ==> ("Mouse",8)
 
 mymaximum :: (a -> a -> Bool) -> a -> [a] -> a
-mymaximum bigger initial xs = todo
+-- mymaximum bigger initial (x:xs) = if bigger initial x then mymaximum bigger initial xs  else mymaximum bigger x xs
+-- mymaximum bigger initial [] = initial
+
+-- I'm surprised that this version works
+mymaximum bigger initial (x:xs)
+ | bigger initial x = mymaximum bigger initial xs
+ | otherwise = mymaximum bigger x xs
+mymaximum bigger initial [] = initial
+
+
 
 ------------------------------------------------------------------------------
 -- Ex 9: define a version of map that takes a two-argument function
@@ -183,8 +204,8 @@ mymaximum bigger initial xs = todo
 -- Use recursion and pattern matching. Do not use any library functions.
 
 map2 :: (a -> b -> c) -> [a] -> [b] -> [c]
-map2 f as bs = todo
-
+map2 f (a:as) (b:bs) = f a b : map2 f as bs
+map2 f _ _ = []
 ------------------------------------------------------------------------------
 -- Ex 10: implement the function maybeMap, which works a bit like a
 -- combined map & filter.
@@ -207,4 +228,6 @@ map2 f as bs = todo
 --   ==> []
 
 maybeMap :: (a -> Maybe b) -> [a] -> [b]
-maybeMap f xs = todo
+maybeMap f (x:xs) = case f x of Just ans -> ans : maybeMap f xs
+                                Nothing -> maybeMap f xs
+maybeMap f [] = []
